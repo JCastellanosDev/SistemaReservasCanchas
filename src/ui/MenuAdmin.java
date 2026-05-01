@@ -1,9 +1,12 @@
 package ui;
+import Datos.ArchivosReservas;
 import Servicios.SistemaReservas;
 import modelos.Cancha;
 
+
 public class MenuAdmin {
     private SistemaReservas sistema;
+    private ArchivosReservas archivo = new ArchivosReservas();
 
     public MenuAdmin(SistemaReservas sistema) {
         this.sistema = sistema;
@@ -61,7 +64,7 @@ public class MenuAdmin {
                     Espera.limpiar();
                     break;
                 case 3:
-                    sistema.guardarInfo();
+                    archivo.guardar(sistema);
                     Espera.pausar();
                     Espera.limpiar();
                     break;
