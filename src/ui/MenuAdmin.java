@@ -22,7 +22,7 @@ public class MenuAdmin {
             IO.println("¿Que deseas hacer?");
             IO.println("1.- Agregar nueva cancha");
             IO.println("2.- Eliminar cancha");
-            IO.println("3.- Guardar informacion");
+            IO.println("3.- Eliminar reserva");
             IO.println("0.- Salir de super usuario");
             opcAdmin = LectorConsola.leerEntero("Opcion: ");
 
@@ -63,9 +63,12 @@ public class MenuAdmin {
                     Espera.pausar();
                     Espera.limpiar();
                     break;
-                case 3:
-                    archivo.guardar(sistema);
-                    Espera.pausar();
+	                case 3:
+	                    IO.println("Reservas registradas:");
+	                    sistema.mostrarReservas();
+	                    int idReserva = LectorConsola.leerEntero("ID de la reserva a eliminar : ");
+	                    sistema.eliminarReserva(idReserva);
+	                    Espera.pausar();
                     Espera.limpiar();
                     break;
                 case 0:

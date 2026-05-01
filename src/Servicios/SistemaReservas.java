@@ -2,17 +2,12 @@ package Servicios;
 
 import modelos.Cancha;
 import modelos.Reserva;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class SistemaReservas {
     private ArrayList<Cancha> canchas = new ArrayList<>();
     private ArrayList<Reserva> reservas = new ArrayList<>();
+    private int siguienteIdReserva = 1;
 
     public void agregarCancha(Cancha cancha) {
         for (Cancha c : canchas) {
@@ -74,7 +69,8 @@ public class SistemaReservas {
             }
         }
 
-        Reserva nueva = new Reserva(reservas.size() + 1, cliente, horario, cancha);
+        Reserva nueva = new Reserva(siguienteIdReserva, cliente, horario, cancha);
+        siguienteIdReserva++;
         reservas.add(nueva);
         cancha.setDisponible(false);
         System.out.println("Reserva agregada");
@@ -91,23 +87,62 @@ public class SistemaReservas {
         }
     }
 
-    public void mostrarCanchas() {
-        if (canchas.isEmpty()) {
-            System.out.println("No hay canchas registradas");
-            return;
-        }
+	    public void mostrarCanchas() {
+	        if (canchas.isEmpty()) {
+	            System.out.println("No hay canchas registradas");
+	            return;
+	        }
 
-        for (Cancha c : canchas) {
-            c.mostrarInfo();
-        }
+	        for (Cancha c : canchas) {
+	            c.mostrarInfo();
+	            boolean tieneReservas = false;
+
+	            System.out.println("Horarios ocupados:");
+	            for (Reserva r : reservas) {
+	                if (r.getCancha().getId() == c.getId()) {
+	                    System.out.println("- " + r.getHorario() + " | Cliente: " + r.getCliente());
+	                    tieneReservas = true;
+	                }
+	            }
+
+	            if (!tieneReservas) {
+	                System.out.println("- Sin horarios ocupados");
+	            }
+
+	            System.out.println();
+	        }
+	    }
+
+    public void eliminarReserva(int idReserva){
+        for (Reserva r : reservas) {
+            if (r.getId() == idReserva){
+                Cancha cancha = r.getCancha();
+                reservas.remove(r);
+                boolean canchaTieneReservas = false;
+
+                for(Reserva otraReserva : reservas){
+                    if(otraReserva.getCancha().getId() == cancha.getId()){
+                        canchaTieneReservas = true;
+                        break;
+                    }
+                }
+                if(!canchaTieneReservas){
+                    cancha.setDisponible(true);
+                }
+                IO.println("Reserva eliminada");
+                return;
+            }
     }
-
-    public boolean cargarInfo() {
-
+        IO.println("Reserva no encontrada");
     }
-
     public ArrayList<Reserva> getReservas() {return reservas;}
 
     public ArrayList<Cancha> getCanchas() {return canchas;}
+
+    public void actualizarSiguienteIdReserva(int idReserva) {
+        if (idReserva >= siguienteIdReserva) {
+            siguienteIdReserva = idReserva + 1;
+        }
+    }
 
 }

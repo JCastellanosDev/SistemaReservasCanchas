@@ -45,6 +45,7 @@ public class ArchivosReservas {
                     if (cancha != null) {
                         Reserva reserva = new Reserva(idReserva, cliente, horario, cancha);
                         sistema.getReservas().add(reserva);
+                        sistema.actualizarSiguienteIdReserva(idReserva);
                     }
                 }
             }
