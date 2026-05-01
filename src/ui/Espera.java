@@ -1,3 +1,5 @@
+package ui;
+
 public class Espera {
     static void esperar(int milisegundos) {
         try {
