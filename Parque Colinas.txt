@@ -1,0 +1,8 @@
+Canchas
+CANCHA;1;Futbol;true
+CANCHA;2;Tenis;true
+CANCHA;3;beis;false
+CANCHA;4;voley;true
+
+Reservas
+RESERVA;1;yo;4 -6;3
