@@ -1,6 +1,5 @@
 package ui;
 import Servicios.SistemaReservas;
-import modelos.Cancha;
 
 public class MenuPrincipal {
     private SistemaReservas sistema;
@@ -29,7 +28,9 @@ public class MenuPrincipal {
                     sistema.mostrarCanchas();
                     var id = LectorConsola.leerEntero("ID de la cancha: ");
                     var nombreCliente = IO.readln("Nombre del cliente: ");
-                    var horario = IO.readln("Horario: ");
+                    var horaInicio = LectorConsola.leerEntero("Hora de inicio:  (7 - 20)");
+                    var horaFinal = LectorConsola.leerEntero("Hora fin  (8-21): ");
+                    String horario = horaInicio + ":00 - " + horaFinal + ":00";
 
                     sistema.reservarCancha(id, nombreCliente, horario);
                     Espera.pausar();
@@ -40,9 +41,15 @@ public class MenuPrincipal {
                     Espera.pausar();
                     Espera.limpiar();
                     break;
-                case 35789:
-                    MenuAdmin menuAdmin = new MenuAdmin(sistema);
-                    menuAdmin.mostrar();
+                case 99:
+                    var contra = LectorConsola.leerEntero("Ingrese su contraseña: ");
+                    if (contra == 35789){
+                        MenuAdmin menuAdmin = new MenuAdmin(sistema);
+                        menuAdmin.mostrar();
+                    }else{
+                        IO.println("---Acceso Denegado---");
+                    }
+
                     break;
 
                 case 0:

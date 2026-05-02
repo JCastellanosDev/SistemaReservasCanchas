@@ -112,7 +112,18 @@ public class SistemaReservas {
 	            System.out.println();
 	        }
 	    }
-
+    public void buscarReservaPorCliente(String nombre) {
+        boolean encontrado = false;
+        for (Reserva r : reservas) {
+            if(r.getCliente().equalsIgnoreCase(nombre)) {
+                r.mostrarReserva();
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            IO.println("No se econtro reservas para: " + nombre);
+        }
+    }
     public void eliminarReserva(int idReserva){
         for (Reserva r : reservas) {
             if (r.getId() == idReserva){

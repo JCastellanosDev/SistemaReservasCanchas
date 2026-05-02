@@ -12,8 +12,8 @@ public class MenuAdmin {
         this.sistema = sistema;
     }
     public void mostrar(){
-        IO.println("Acesso super usuario concedido");
-        Espera.esperar(2000);
+        IO.println("Aceso super usuario concedido");
+        Espera.esperar(1000);
         Espera.limpiar();
 
         int opcAdmin;
