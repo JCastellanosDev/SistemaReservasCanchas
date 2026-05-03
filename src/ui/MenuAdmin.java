@@ -34,7 +34,7 @@ public class MenuAdmin {
                     Espera.pausar();
                     Espera.limpiar();
                     break;
-                    }
+
 
                 case 2:
                     var idE = LectorConsola.leerEntero("ID de la cancha a eliminar : ");
