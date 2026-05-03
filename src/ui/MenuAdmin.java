@@ -35,11 +35,7 @@ public class MenuAdmin {
                     Espera.limpiar();
                     break;
                     }
-                    var tipoCancha = IO.readln("Tipo de cancha nueva : ");
-                    sistema.agregarCancha(new Cancha(idM, tipoCancha));
-                    Espera.pausar();
-                    Espera.limpiar();
-                    break;
+
                 case 2:
                     var idE = LectorConsola.leerEntero("ID de la cancha a eliminar : ");
                     Cancha canchaEliminar = sistema.buscarCancha(idE);
