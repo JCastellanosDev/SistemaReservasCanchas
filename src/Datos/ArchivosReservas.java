@@ -32,6 +32,7 @@ public class ArchivosReservas {
                     Cancha cancha = new Cancha(id, tipo);
                     cancha.setDisponible(disponible);
                     sistema.getCanchas().add(cancha);
+                    sistema.actualizarSiguienteCancha(id);
                 }
 
                 if (partes[0].equals("RESERVA")) {

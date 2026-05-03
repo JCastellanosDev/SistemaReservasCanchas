@@ -1,5 +1,7 @@
 package ui;
 import Servicios.SistemaReservas;
+import Servicios.ValidarHorario;
+import Servicios.HorarioParque;
 
 public class MenuPrincipal {
     private SistemaReservas sistema;
@@ -26,12 +28,37 @@ public class MenuPrincipal {
                     break;
                 case 2:
                     sistema.mostrarCanchas();
+
+                    String rango = ValidarHorario.rangoDisponible();
+                    if (rango == null) {
+                        IO.println("Lo sentimos, ya no hay horarios disponibles por hoy.");
+                        IO.println("El parque cierra a las " + HorarioParque.CIERRE.getTexto() + ".");
+                        Espera.pausar();
+                        Espera.limpiar();
+                        break;
+                    }
+
                     var id = LectorConsola.leerEntero("ID de la cancha: ");
                     var nombreCliente = IO.readln("Nombre del cliente: ");
-                    var horaInicio = LectorConsola.leerEntero("Hora de inicio:  (7 - 20)");
-                    var horaFinal = LectorConsola.leerEntero("Hora fin  (8-21): ");
-                    String horario = horaInicio + ":00 - " + horaFinal + ":00";
 
+                    IO.println("Horarios disponibles por hoy:" + rango);
+                    IO.println("Formato de 24 Horas: HH:MM");
+
+
+
+                    String horaInicio, horaFi, errorHorario;
+                    do{
+                        horaInicio = IO.readln("Horario de inicio: ");
+                        horaFi = IO.readln("Horario de fin: ");
+                        errorHorario = ValidarHorario.validar(horaInicio, horaFi);
+
+                        if(errorHorario != null){
+                            IO.println("Error: " + errorHorario);
+                            IO.println("Intenta de nuevo");
+                        }
+                    }while(errorHorario != null);
+
+                    String horario = ValidarHorario.formatear(horaInicio, horaFi);
                     sistema.reservarCancha(id, nombreCliente, horario);
                     Espera.pausar();
                     Espera.limpiar();

@@ -9,8 +9,8 @@ void main() {
     ArchivosReservas archivo = new ArchivosReservas();
 
     if (!archivo.cargar(sistema)) {
-        sistema.agregarCancha(new Cancha(1, "Futbol"));
-        sistema.agregarCancha(new Cancha(2, "Tenis"));
+        sistema.agregarCancha("Futbol");
+        sistema.agregarCancha("Tenis");
 
     }
     MenuPrincipal menu = new MenuPrincipal(sistema);

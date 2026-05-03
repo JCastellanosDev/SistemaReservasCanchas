@@ -1,9 +1,3 @@
 Canchas
-CANCHA;1;Futbol;true
-CANCHA;3;beis;true
-CANCHA;4;voley;false
-CANCHA;6;fut;false
 
 Reservas
-RESERVA;2;yo;6-8;4
-RESERVA;3;chuy;5:00 - 6:00;6

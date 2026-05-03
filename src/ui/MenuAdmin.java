@@ -23,17 +23,17 @@ public class MenuAdmin {
             IO.println("1.- Agregar nueva cancha");
             IO.println("2.- Eliminar cancha");
             IO.println("3.- Eliminar reserva");
+            IO.println("4.- Eliminar todas las reservas");
             IO.println("0.- Salir de super usuario");
             opcAdmin = LectorConsola.leerEntero("Opcion: ");
 
             switch (opcAdmin){
                 case 1:
-                    var idM = LectorConsola.leerEntero("ID de la cancha nueva : ");
-                    if(sistema.existeCancha(idM)){
-                        IO.println("Ya existe una cancha con ese ID");
-                        Espera.pausar();
-                        Espera.limpiar();
-                        break;
+                    var tipoCancha = IO.readln("Tipo de cancha nueva: ");
+                    sistema.agregarCancha(tipoCancha);
+                    Espera.pausar();
+                    Espera.limpiar();
+                    break;
                     }
                     var tipoCancha = IO.readln("Tipo de cancha nueva : ");
                     sistema.agregarCancha(new Cancha(idM, tipoCancha));
@@ -71,6 +71,20 @@ public class MenuAdmin {
 	                    Espera.pausar();
                     Espera.limpiar();
                     break;
+                case 4:
+                    IO.println("===ADVERTENCIA====");
+                    IO.println("Esta accion elimara todas las reservas registradas.");
+                    sistema.mostrarReservas();
+                    String borrar = IO.readln("Escribe confirmar para continuar");
+                    if (borrar.equalsIgnoreCase("confirmar")){
+                        sistema.eliminarTodasReservas();
+                    }else {
+                        IO.println("Operacion cancelada");
+                    }
+                    Espera.pausar();
+                    Espera.limpiar();
+                    break;
+
                 case 0:
                     IO.println("Saliendo de super usuario");
                     Espera.pausar();

@@ -8,18 +8,20 @@ public class SistemaReservas {
     private ArrayList<Cancha> canchas = new ArrayList<>();
     private ArrayList<Reserva> reservas = new ArrayList<>();
     private int siguienteIdReserva = 1;
+    private int siguienteIdCancha = 1;
 
-    public void agregarCancha(Cancha cancha) {
-        for (Cancha c : canchas) {
-            if (c.getId() == cancha.getId()) {
-                System.out.println("Cancha con mismo ID");
-                return;
-            }
-        }
+   public void agregarCancha(String tipo){
+       canchas.add(new Cancha(siguienteIdCancha, tipo));
+           siguienteIdCancha++;
+           IO.println("Cancha agregada con ID: " + (siguienteIdCancha -1));
 
-        canchas.add(cancha);
-        System.out.println("Cancha agregada");
-    }
+   }
+
+   public void actualizarSiguienteCancha(int id){
+       if (id >= siguienteIdCancha){
+           siguienteIdCancha = id + 1;
+       }
+   }
 
     public void eliminarCancha(int id) {
         for (Reserva r : reservas) {
@@ -39,6 +41,7 @@ public class SistemaReservas {
 
         System.out.println("Cancha no encontrada");
     }
+
 
     public boolean existeCancha(int id) {
         return buscarCancha(id) != null;
@@ -87,7 +90,7 @@ public class SistemaReservas {
         }
     }
 
-	    public void mostrarCanchas() {
+    public void mostrarCanchas() {
 	        if (canchas.isEmpty()) {
 	            System.out.println("No hay canchas registradas");
 	            return;
@@ -112,6 +115,7 @@ public class SistemaReservas {
 	            System.out.println();
 	        }
 	    }
+
     public void buscarReservaPorCliente(String nombre) {
         boolean encontrado = false;
         for (Reserva r : reservas) {
@@ -124,6 +128,7 @@ public class SistemaReservas {
             IO.println("No se econtro reservas para: " + nombre);
         }
     }
+
     public void eliminarReserva(int idReserva){
         for (Reserva r : reservas) {
             if (r.getId() == idReserva){
@@ -146,6 +151,20 @@ public class SistemaReservas {
     }
         IO.println("Reserva no encontrada");
     }
+
+    public void eliminarTodasReservas(){
+        if (reservas.isEmpty()) {
+            IO.println("No hay reservas registradas");
+            return;
+        }
+        int total = reservas.size();
+        reservas.clear();
+        for (Cancha c : canchas) {
+            c.setDisponible(true);
+        }
+        IO.println("Se eliminaron "+ total +" reserva(s). Todas las canchas estan disponibles");
+    }
+
     public ArrayList<Reserva> getReservas() {return reservas;}
 
     public ArrayList<Cancha> getCanchas() {return canchas;}

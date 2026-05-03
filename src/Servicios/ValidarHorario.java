@@ -51,6 +51,21 @@ public class ValidarHorario {
         return null;
     }
 
+    public static String rangoDisponible() {
+        LocalTime ahora = LocalTime.now();
+        LocalTime apertura = LocalTime.now();
+        LocalTime ultimaReserva = LocalTime.now();
+
+        LocalTime desde = ahora.isBefore(apertura) ? apertura : ahora.plusMinutes(1);
+
+        if (desde.isAfter(ultimaReserva)) return null;
+
+        return desde.format(HorarioParque.FORMATO)
+                + " - "
+                + ultimaReserva.format(HorarioParque.FORMATO)
+                + "  (fin maximo: " + HorarioParque.CIERRE.getTexto() + ")";
+    }
+
     public static String formatear(String inicio, String fin) {
         return inicio.trim() + " - " + fin.trim();
     }
