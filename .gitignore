@@ -33,3 +33,4 @@ bin/
 *.log
 *DS_Store
 *.iml
+.idea/
